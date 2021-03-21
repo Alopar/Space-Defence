@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int _health = 5;
+    [SerializeField] private int _shield = 3;
+    public GameObject ex;
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage(int damage)
     {
-        
+        if (_shield > 0)
+        {
+            _shield -= damage;
+        }
+        else
+        {
+            _health -= damage;
+        }
+
+        if(_health <= 0)
+        {
+            Debug.Log("Game Over!");
+        }
     }
 }
