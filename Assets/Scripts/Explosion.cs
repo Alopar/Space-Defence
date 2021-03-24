@@ -13,6 +13,9 @@ public class Explosion : MonoBehaviour
 
     void Update()
     {
-
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("End"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
