@@ -23,7 +23,22 @@ public class Planet : MonoBehaviour
         if (_currentShield > 0)
         {
             _currentShield -= damage;
-            _shield.SetState(ShieldState.yellow);
+            if (_currentShield >= 3)
+            {
+                _shield.SetState(ShieldState.green);
+            }
+            else if (_currentShield == 2)
+            {
+                _shield.SetState(ShieldState.yellow);
+            }
+            else if (_currentShield == 1)
+            {
+                _shield.SetState(ShieldState.red);                
+            }
+            else
+            {
+                _shield.SetState(ShieldState.none);                
+            }
         }
         else
         {
