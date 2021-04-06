@@ -17,6 +17,8 @@ public class Platform : MonoBehaviour
         _planetPosition = _planet.GetComponent<Transform>();
 
         _direction = Vector3.Angle(_planetPosition.position, transform.position) * Mathf.Deg2Rad;
+
+        ContollerUI.OnMovingButton += Moving;
     }
 
     void Update()
@@ -33,8 +35,6 @@ public class Platform : MonoBehaviour
 
         transform.position = new Vector3(_x, _y, 0) * 3.2f;
         transform.eulerAngles = new Vector3(0, 0, (_direction * Mathf.Rad2Deg) - 90);
-
-        
     }
 
     private void CheckCollisionOnAsteroid()

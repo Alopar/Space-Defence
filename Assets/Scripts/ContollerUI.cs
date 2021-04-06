@@ -1,18 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 
 public class ContollerUI : MonoBehaviour
 {
-    private Platform _platform;
-    
+    [SerializeField] private GameObject _gameOver;
+    [SerializeField] private TextMeshProUGUI _shieldText;
+    [SerializeField] private TextMeshProUGUI _planetText;
+
     private bool _moveLeft = false;
     private bool _moveRight = false;
 
     void Start()
     {
-        _platform = FindObjectOfType<Platform>();
+        Planet.OnDamaged += ChangedPlanetState;
+    }
+
+    public static event Action<int> OnMovingButton;
+
+    private void ChangedPlanetState(int shieldHp, int planetHp)
+    {
+        _shieldText.text = "SHIELD  HP:  " + shieldHp;
+        _planetText.text = "PLANET HP:  " + planetHp;
+
+        if(planetHp <= 0)
+        {
+            GameOver();
+        }
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0f;
+        _gameOver.SetActive(true);
     }
 
     public void ExitGame()
@@ -34,6 +58,12 @@ public class ContollerUI : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Game");
+    }
+
+    public void ToHome()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
     }
 
     public void PlatformMovingLeftDown()
@@ -60,12 +90,12 @@ public class ContollerUI : MonoBehaviour
     {
         if (_moveLeft)
         {
-            _platform.Moving(1);
+            OnMovingButton?.Invoke(1);
         }
 
         if (_moveRight)
         {
-            _platform.Moving(-1);
+            OnMovingButton?.Invoke(-1);
         }
     }
 }

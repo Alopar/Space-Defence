@@ -45,7 +45,7 @@ public class Meteoroid : MonoBehaviour
             }
             _effect.transform.position = transform.position;
 
-            _planet.TakeDamage(1);
+            _planet.SetDamage(1);
             Destroy(gameObject);          
         }
     }

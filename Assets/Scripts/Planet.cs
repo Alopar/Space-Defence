@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 public class Planet : MonoBehaviour
 {
@@ -16,9 +18,13 @@ public class Planet : MonoBehaviour
         _currentHealth = _MaxHealth;
         _currentShield = _MaxShield;
         _shield = FindObjectOfType<Shield>();
+
+        OnDamaged?.Invoke(_currentShield, _currentHealth);
     }
 
-    public void TakeDamage(int damage)
+    public static event Action<int, int> OnDamaged;
+
+    public void SetDamage(int damage)
     {
         if (_currentShield > 0)
         {
@@ -45,10 +51,7 @@ public class Planet : MonoBehaviour
             _currentHealth -= damage;
         }
 
-        if(_currentHealth <= 0)
-        {
-            Debug.Log("Game Over!");
-        }
+        OnDamaged?.Invoke(_currentShield, _currentHealth);
     }
 
     public ShieldState GetShieldState()
