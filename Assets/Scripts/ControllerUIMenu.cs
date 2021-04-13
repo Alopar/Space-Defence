@@ -7,6 +7,6 @@ public class ControllerUIMenu : MonoBehaviour
 {
     public void StartGame()
     {   
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Game");        
     }
 }

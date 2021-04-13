@@ -18,9 +18,9 @@ public class Platform : MonoBehaviour
 
         _direction = Vector3.Angle(_planetPosition.position, transform.position) * Mathf.Deg2Rad;
 
-        ContollerUI.OnMovingButton += Moving;
+        ControllerUI.OnMovingButton += Moving;
     }
-
+    
     void Update()
     {
         CheckCollisionOnAsteroid();
@@ -44,7 +44,13 @@ public class Platform : MonoBehaviour
 
         foreach (Collider2D collider in _AsteroidColliders)
         {
+            Controller.SetScore(1);
             Destroy(collider.gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        ControllerUI.OnMovingButton -= Moving;
     }
 }

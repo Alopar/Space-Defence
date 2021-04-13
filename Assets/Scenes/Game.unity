@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 41556037}
   - component: {fileID: 41556040}
   - component: {fileID: 41556036}
+  - component: {fileID: 41556041}
   m_Layer: 5
   m_Name: MusicToggle
   m_TagString: Untagged
@@ -191,8 +192,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 443371963}
-        m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+        m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
         m_MethodName: MusicToggle
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 41556036}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 41556041}
+        m_TargetAssemblyTypeName: ControllerToggle, Assembly-CSharp
+        m_MethodName: ToggleChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -274,6 +287,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1
+--- !u!114 &41556041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 41556035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff7172467fee1041897256221419079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toggleSpriteOn: {fileID: 21300000, guid: 28eeb17d5178a2e4a98e3f8a41954636, type: 3}
+  _toggleSpriteOff: {fileID: 21300000, guid: 6ad20ea48d17c5944a21cadf8a8c0d9c, type: 3}
+  _settingName: 0
 --- !u!1 &72339800
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72339801}
   - component: {fileID: 72339802}
+  - component: {fileID: 72339803}
   m_Layer: 5
   m_Name: MusicSlider
   m_TagString: Untagged
@@ -364,7 +393,32 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 443371963}
+        m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
+        m_MethodName: MusicChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 72339802}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &72339803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72339800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c07c1bda56ea64991d8b37c4f33d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settingName: 3
 --- !u!1 &81599336
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +557,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: PlatformMovingRightDown
           m_Mode: 1
           m_Arguments:
@@ -519,7 +573,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: PlatformMovingRightUp
           m_Mode: 1
           m_Arguments:
@@ -535,7 +589,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: PlatformMovingRightUp
           m_Mode: 1
           m_Arguments:
@@ -952,7 +1006,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: ResumeGame
           m_Mode: 1
           m_Arguments:
@@ -1512,6 +1566,7 @@ GameObject:
   - component: {fileID: 443371961}
   - component: {fileID: 443371960}
   - component: {fileID: 443371959}
+  - component: {fileID: 443371964}
   - component: {fileID: 443371963}
   m_Layer: 5
   m_Name: UI
@@ -1619,12 +1674,19 @@ MonoBehaviour:
   _gameOver: {fileID: 1833938859}
   _shieldText: {fileID: 1180766263}
   _planetText: {fileID: 515464666}
-  _soundToggle: {fileID: 1188677713}
-  _soundToggleSpriteOn: {fileID: 21300000, guid: 842c61afbdadbd840990b8c51cf61e82, type: 3}
-  _soundToggleSpriteOff: {fileID: 21300000, guid: 27bea0a3959dbd44a97423d7f44e07ae, type: 3}
-  _musicToggle: {fileID: 41556036}
-  _musicToggleSpriteOn: {fileID: 21300000, guid: 28eeb17d5178a2e4a98e3f8a41954636, type: 3}
-  _musicToggleSpriteOff: {fileID: 21300000, guid: 6ad20ea48d17c5944a21cadf8a8c0d9c, type: 3}
+  _gameScore: {fileID: 1358873619}
+--- !u!114 &443371964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 443371958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d855e67d3efc1fc46a047dd25860bb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &454443093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2303,7 +2365,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: RepeatScene
           m_Mode: 1
           m_Arguments:
@@ -2587,6 +2649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 991715090}
   - component: {fileID: 991715091}
+  - component: {fileID: 991715092}
   m_Layer: 5
   m_Name: SoundSlider
   m_TagString: Untagged
@@ -2667,7 +2730,32 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 443371963}
+        m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
+        m_MethodName: SoundChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 991715091}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &991715092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991715089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84c07c1bda56ea64991d8b37c4f33d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _settingName: 2
 --- !u!1 &1072594112
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,6 +3205,7 @@ GameObject:
   - component: {fileID: 1188677714}
   - component: {fileID: 1188677716}
   - component: {fileID: 1188677713}
+  - component: {fileID: 1188677717}
   m_Layer: 5
   m_Name: SoundToggle
   m_TagString: Untagged
@@ -3191,8 +3280,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 443371963}
-        m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+        m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
         m_MethodName: SoundToggle
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1188677713}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1188677717}
+        m_TargetAssemblyTypeName: ControllerToggle, Assembly-CSharp
+        m_MethodName: ToggleChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3255,6 +3356,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1
+--- !u!114 &1188677717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188677711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff7172467fee1041897256221419079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _toggleSpriteOn: {fileID: 21300000, guid: 842c61afbdadbd840990b8c51cf61e82, type: 3}
+  _toggleSpriteOff: {fileID: 21300000, guid: 27bea0a3959dbd44a97423d7f44e07ae, type: 3}
+  _settingName: 1
 --- !u!1 &1205749449
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,7 +4030,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: ToHome
           m_Mode: 1
           m_Arguments:
@@ -4314,7 +4430,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: RepeatScene
           m_Mode: 1
           m_Arguments:
@@ -4682,7 +4798,7 @@ MonoBehaviour:
             m_BoolArgument: 1
           m_CallState: 2
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: PauseGame
           m_Mode: 1
           m_Arguments:
@@ -4916,7 +5032,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: ToHome
           m_Mode: 1
           m_Arguments:
@@ -5036,7 +5152,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: PlatformMovingLeftDown
           m_Mode: 1
           m_Arguments:
@@ -5052,7 +5168,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: PlatformMovingLeftUp
           m_Mode: 1
           m_Arguments:
@@ -5068,7 +5184,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 443371963}
-          m_TargetAssemblyTypeName: ContollerUI, Assembly-CSharp
+          m_TargetAssemblyTypeName: ControllerUI, Assembly-CSharp
           m_MethodName: PlatformMovingLeftUp
           m_Mode: 1
           m_Arguments:

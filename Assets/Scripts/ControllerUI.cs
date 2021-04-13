@@ -7,17 +7,12 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 
-public class ContollerUI : MonoBehaviour
+public class ControllerUI : MonoBehaviour
 {
     [SerializeField] private GameObject _gameOver;
     [SerializeField] private TextMeshProUGUI _shieldText;
     [SerializeField] private TextMeshProUGUI _planetText;
-    [SerializeField] private Toggle _soundToggle;
-    [SerializeField] private Sprite _soundToggleSpriteOn;
-    [SerializeField] private Sprite _soundToggleSpriteOff;
-    [SerializeField] private Toggle _musicToggle;
-    [SerializeField] private Sprite _musicToggleSpriteOn;
-    [SerializeField] private Sprite _musicToggleSpriteOff;
+    [SerializeField] private TextMeshProUGUI _gameScore;
 
     private bool _moveLeft = false;
     private bool _moveRight = false;
@@ -25,9 +20,14 @@ public class ContollerUI : MonoBehaviour
     void Start()
     {
         Planet.OnDamaged += ChangedPlanetState;
+        Controller.OnSetScore += ChangedScore;
     }
 
     public static event Action<int> OnMovingButton;
+    public static event Action<bool> OnSoundToggle;
+    public static event Action<bool> OnMusicToggle;
+    public static event Action<float> OnSoundChange;
+    public static event Action<float> OnMusicChange;
 
     private void ChangedPlanetState(int shieldHp, int planetHp)
     {
@@ -40,30 +40,30 @@ public class ContollerUI : MonoBehaviour
         }
     }
 
-    public void SoundToggle()
-    {   
-        Image image = _soundToggle.GetComponent<Image>();
-        if (_soundToggle.isOn)
-        {   
-            image.sprite = _soundToggleSpriteOn;
-        }
-        else
-        {            
-            image.sprite = _soundToggleSpriteOff;
-        }
+    private void ChangedScore(int score)
+    {
+        _gameScore.text = score.ToString();
     }
 
-    public void MusicToggle()
+    public void SoundToggle(Toggle toggle)
     {
-        Image image = _musicToggle.GetComponent<Image>();
-        if (_musicToggle.isOn)
-        {
-            image.sprite = _musicToggleSpriteOn;
-        }
-        else
-        {
-            image.sprite = _musicToggleSpriteOff;
-        }
+        OnSoundToggle?.Invoke(toggle.isOn);
+    }
+
+    public void MusicToggle(Toggle toggle)
+    {
+        
+        OnMusicToggle?.Invoke(toggle.isOn);
+    }
+
+    public void SoundChange(Slider slider)
+    {
+        OnSoundChange?.Invoke(slider.value);
+    }
+
+    public void MusicChange(Slider slider)
+    {
+        OnMusicChange?.Invoke(slider.value);
     }
 
     public void ToHome()
@@ -95,7 +95,7 @@ public class ContollerUI : MonoBehaviour
 
     public void RepeatScene()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 1f;        
         SceneManager.LoadScene("Game");
     }
 
@@ -130,5 +130,11 @@ public class ContollerUI : MonoBehaviour
         {
             OnMovingButton?.Invoke(-1);
         }
+    }
+
+    private void OnDestroy()
+    {
+        Planet.OnDamaged -= ChangedPlanetState;
+        Controller.OnSetScore -= ChangedScore;
     }
 }
