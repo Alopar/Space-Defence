@@ -10,14 +10,17 @@ public class StorageSettings : MonoBehaviour
     public static float musicVolume { get; private set; }
     public static float soundVolume { get; private set; }
 
-    void Start()
+    private void Awake()
     {
         musicOn = PlayerPrefs.HasKey("music_on") ? Convert.ToBoolean(PlayerPrefs.GetInt("music_on")) : true;
         soundOn = PlayerPrefs.HasKey("sound_on") ? Convert.ToBoolean(PlayerPrefs.GetInt("sound_on")) : true;
 
         musicVolume = PlayerPrefs.HasKey("music_volume") ? Mathf.Clamp(PlayerPrefs.GetFloat("music_volume"), 0, 100) : 50;
         soundVolume = PlayerPrefs.HasKey("sound_volume") ? Mathf.Clamp(PlayerPrefs.GetFloat("sound_volume"), 0, 100) : 50;
+    }
 
+    void Start()
+    {
         ControllerUI.OnMusicToggle += SetMusicOn;
         ControllerUI.OnSoundToggle += SetSoundOn;
         ControllerUI.OnMusicChange += SetMusicVolume;

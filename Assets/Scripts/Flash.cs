@@ -9,6 +9,7 @@ public class Flash : MonoBehaviour
     void Start()
     {
         _animator = GetComponent<Animator>();
+        AudioManager.instance.Play("Flash");
     }
 
     void Update()

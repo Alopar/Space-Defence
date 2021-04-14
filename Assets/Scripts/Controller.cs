@@ -12,8 +12,9 @@ public class Controller : MonoBehaviour
 
     void Start()
     {
-        _score = 0;
+        SetScore(0);
         _platform = FindObjectOfType<Platform>();
+        AudioManager.instance.Play("BackgroundGame");
     }
 
     void Update()
