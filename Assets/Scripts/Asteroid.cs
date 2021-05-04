@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Meteoroid : MonoBehaviour
+public class Asteroid : MonoBehaviour
 {
     [HideInInspector] public float moveSpeed;
     [HideInInspector] public float rotateSpeed;
@@ -25,19 +25,22 @@ public class Meteoroid : MonoBehaviour
             switch (_planet.GetShieldState())
             {
                 case ShieldState.green:
-                    _effect = Instantiate(_flash);
+                    _effect = Instantiate(_flash);                    
                     _effectAnimator = _effect.GetComponent<Animator>();
                     _effectAnimator.SetBool("green", true);
+                    AudioManager.Play("Flash");
                     break;
                 case ShieldState.yellow:
-                    _effect = Instantiate(_flash);
+                    _effect = Instantiate(_flash);                    
                     _effectAnimator = _effect.GetComponent<Animator>();
-                    _effectAnimator.SetBool("yellow", true);                    
+                    _effectAnimator.SetBool("yellow", true);
+                    AudioManager.Play("Flash");
                     break;
                 case ShieldState.red:
-                    _effect = Instantiate(_flash);
+                    _effect = Instantiate(_flash);                    
                     _effectAnimator = _effect.GetComponent<Animator>();
-                    _effectAnimator.SetBool("red", true);                    
+                    _effectAnimator.SetBool("red", true);
+                    AudioManager.Play("Flash");
                     break;
                 case ShieldState.none:
                     _effect = Instantiate(_explosion);

@@ -21,10 +21,10 @@ public class StorageSettings : MonoBehaviour
 
     void Start()
     {
-        ControllerUI.OnMusicToggle += SetMusicOn;
-        ControllerUI.OnSoundToggle += SetSoundOn;
-        ControllerUI.OnMusicChange += SetMusicVolume;
-        ControllerUI.OnSoundChange += SetSoundVolume;
+        UiGameManager.OnMusicToggle += SetMusicOn;
+        UiGameManager.OnSoundToggle += SetSoundOn;
+        UiGameManager.OnMusicChange += SetMusicVolume;
+        UiGameManager.OnSoundChange += SetSoundVolume;
     }
 
     private void SetMusicOn(bool value)
@@ -53,10 +53,10 @@ public class StorageSettings : MonoBehaviour
 
     private void OnDestroy()
     {
-        ControllerUI.OnMusicToggle -= SetMusicOn;
-        ControllerUI.OnSoundToggle -= SetSoundOn;
-        ControllerUI.OnMusicChange -= SetMusicVolume;
-        ControllerUI.OnSoundChange -= SetSoundVolume;
+        UiGameManager.OnMusicToggle -= SetMusicOn;
+        UiGameManager.OnSoundToggle -= SetSoundOn;
+        UiGameManager.OnMusicChange -= SetMusicVolume;
+        UiGameManager.OnSoundChange -= SetSoundVolume;
     }
 }
 

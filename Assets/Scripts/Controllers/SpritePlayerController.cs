@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Explosion : MonoBehaviour
+public class SpritePlayerController : MonoBehaviour
 {
     private Animator _animator;
 
-    void Start()
+    void Awake()
     {
         _animator = GetComponent<Animator>();
     }

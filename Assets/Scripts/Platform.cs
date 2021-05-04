@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    [SerializeField] private Planet _planet;
-    [SerializeField, Range(1, 100)] private int _speed = 5;
+    [SerializeField] private PlatformConfiguration _configuration;
 
+    private float _direction;
+    private int _currentSpeed;
     private Collider2D _collider;
-    private Transform _planetPosition;
-    private float _direction = 0;
+    private Transform _planetPosition;    
 
-    void Start()
+    void Awake()
     {
         _collider = GetComponent<CapsuleCollider2D>();
-        _planetPosition = _planet.GetComponent<Transform>();
+        _currentSpeed = _configuration.GetSpeed;
+    }
 
+    void Start()
+    {   
+        _planetPosition = FindObjectOfType<Planet>().GetComponent<Transform>();
         _direction = Vector3.Angle(_planetPosition.position, transform.position) * Mathf.Deg2Rad;
 
-        ControllerUI.OnMovingButton += Moving;
+        UiGameManager.OnMovingButton += Moving;
     }
     
     void Update()
@@ -28,7 +32,7 @@ public class Platform : MonoBehaviour
 
     public void Moving(int side)
     {
-        _direction += _speed * side * Time.deltaTime;
+        _direction += _currentSpeed * side * Time.deltaTime;
 
         float _x = _planetPosition.position.x + Mathf.Cos(_direction);
         float _y = _planetPosition.position.y + Mathf.Sin(_direction);
@@ -44,13 +48,13 @@ public class Platform : MonoBehaviour
 
         foreach (Collider2D collider in _AsteroidColliders)
         {
-            Controller.SetScore(1);
+            GameManager.SetScore(1);
             Destroy(collider.gameObject);
         }
     }
 
     private void OnDestroy()
     {
-        ControllerUI.OnMovingButton -= Moving;
+        UiGameManager.OnMovingButton -= Moving;
     }
 }

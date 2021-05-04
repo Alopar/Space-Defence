@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnAsteroid : MonoBehaviour
+public class SpawnAsteroidArea : MonoBehaviour
 {
-    [SerializeField, Range(1, 10), Tooltip("Одновременное количество астеройдов")] private int _maxNumberAsteroids = 1;
-    [SerializeField] private float _spawnRate = 1;
-    [SerializeField] private GameObject _prefabMeteoroid;
-    [SerializeField] private Transform _targetPlanet;
+    [SerializeField] private SpawnAsteroidConfiguration _configurations;
 
+    private Transform _targetPlanet;
     private bool _spawnReady = true;
     private SpriteRenderer _spriteRenderer;
     private Sprite[] _asteroidSprites = new Sprite[3];
@@ -21,10 +19,15 @@ public class SpawnAsteroid : MonoBehaviour
         _asteroidSprites[2] = Resources.Load<Sprite>("Sprites/Asteroid3");
     }
 
+    void Start()
+    {
+        _targetPlanet = FindObjectOfType<Planet>().transform;
+    }
+
     void Update()
     {
-        Meteoroid[] _meteoroids = FindObjectsOfType<Meteoroid>();
-        if (_spawnReady && _meteoroids.Length < _maxNumberAsteroids)
+        Asteroid[] _meteoroids = FindObjectsOfType<Asteroid>();
+        if (_spawnReady && _meteoroids.Length < _configurations.GetMaxAsteroids)
         {
             _spawnReady = false;
 
@@ -38,9 +41,9 @@ public class SpawnAsteroid : MonoBehaviour
         float _x = Random.Range(_spriteRenderer.bounds.max.x, _spriteRenderer.bounds.min.x);
         float _y = Random.Range(_spriteRenderer.bounds.max.y, _spriteRenderer.bounds.min.y);
 
-        GameObject meteoroid = Instantiate(_prefabMeteoroid);
+        GameObject meteoroid = Instantiate(_configurations.GetPrefabAsteroid);
         meteoroid.transform.position = new Vector3(_x, _y, 0);
-        Meteoroid _meteoroid = meteoroid.GetComponent<Meteoroid>();        
+        Asteroid _meteoroid = meteoroid.GetComponent<Asteroid>();        
 
         Vector2 _randomPoint = Random.insideUnitCircle * 2f;
         _meteoroid.targetPoint = _targetPlanet.position + (new Vector3(_randomPoint.x, _randomPoint.y, 0));
@@ -53,7 +56,7 @@ public class SpawnAsteroid : MonoBehaviour
 
     private IEnumerator SpawnTimer()
     {
-        float spawnTime = _spawnRate;
+        float spawnTime = _configurations.GetSpawnRate;
 
         while (spawnTime > 0)
         {

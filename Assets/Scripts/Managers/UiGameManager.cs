@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 
-public class ControllerUI : MonoBehaviour
+public class UiGameManager : MonoBehaviour
 {
     [SerializeField] private GameObject _gameOver;
     [SerializeField] private TextMeshProUGUI _shieldText;
@@ -20,7 +20,7 @@ public class ControllerUI : MonoBehaviour
     void Start()
     {
         Planet.OnDamaged += ChangedPlanetState;
-        Controller.OnSetScore += ChangedScore;
+        GameManager.OnSetScore += ChangedScore;
     }
 
     public static event Action<int> OnMovingButton;
@@ -135,6 +135,6 @@ public class ControllerUI : MonoBehaviour
     private void OnDestroy()
     {
         Planet.OnDamaged -= ChangedPlanetState;
-        Controller.OnSetScore -= ChangedScore;
+        GameManager.OnSetScore -= ChangedScore;
     }
 }

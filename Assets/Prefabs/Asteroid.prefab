@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -5475606728993808126}
   - component: {fileID: -3404305554169955958}
   m_Layer: 0
-  m_Name: Meteoroid
+  m_Name: Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,5 +115,5 @@ MonoBehaviour:
   moveSpeed: 0
   rotateSpeed: 0
   targetPoint: {x: 0, y: 0, z: 0}
-  _explosion: {fileID: 1399925282647359134, guid: 6980ae25095d8ea4681ad81f9b4226b4, type: 3}
-  _flash: {fileID: 1964489616449366766, guid: 8eaa62289b5f25a4d8246b7dc6fcfca0, type: 3}
+  _explosion: {fileID: 5241154859772998162, guid: d4479a8bd8c3568469abda4bbf97433e, type: 3}
+  _flash: {fileID: 1556197896821774057, guid: bc780276dfb137646bf8b5ab24b2c32a, type: 3}

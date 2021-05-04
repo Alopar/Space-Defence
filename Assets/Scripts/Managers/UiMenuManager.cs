@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ControllerUIMenu : MonoBehaviour
+public class UiMenuManager : MonoBehaviour
 {
     private void Start()
     {
-        AudioManager.instance.Play("BackgroundMainMenu");
+        AudioManager.Play("BackgroundMainMenu");
     }
 
     public void StartGame()

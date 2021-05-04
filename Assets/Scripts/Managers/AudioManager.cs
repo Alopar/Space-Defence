@@ -6,18 +6,26 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] private bool _soundOn = true;
-    [SerializeField] private bool _musicOn = true;
+    private static AudioManager _self;
 
-    [SerializeField, Range(0f, 1f)] private float _soundVolume;
-    [SerializeField, Range(0f, 1f)] private float _musicVolume;
+    private bool _soundOn = true;
+    private bool _musicOn = true;
 
-    public Sound[] sounds;
-    public static AudioManager instance;
+    private float _soundVolume = 100;
+    private float _musicVolume = 100;
+
+    public Sound[] sounds;    
 
     void Awake()
     {
-        instance = this;
+        if(_self == null)
+        {
+            _self = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
 
         foreach (Sound sound in sounds)
         {
@@ -28,7 +36,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
     {
         _soundOn = StorageSettings.soundOn;
         _musicOn = StorageSettings.musicOn;
@@ -38,10 +46,10 @@ public class AudioManager : MonoBehaviour
         ChangeVolume(SoundType.Sound);
         ChangeVolume(SoundType.Music);
 
-        ControllerUI.OnSoundToggle += ChangeSoundOn;
-        ControllerUI.OnMusicToggle += ChangeMusicOn;
-        ControllerUI.OnSoundChange += ChangeSoundVolume;
-        ControllerUI.OnMusicChange += ChangeMusicVolume;
+        UiGameManager.OnSoundToggle += ChangeSoundOn;
+        UiGameManager.OnMusicToggle += ChangeMusicOn;
+        UiGameManager.OnSoundChange += ChangeSoundVolume;
+        UiGameManager.OnMusicChange += ChangeMusicVolume;
     }
 
     private void ChangeSoundOn(bool value)
@@ -94,9 +102,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string name) 
+    public static void Play(string name)
     {
-        Sound sound = Array.Find(instance.sounds, sound => sound.name == name);
+        Sound sound = Array.Find(_self.sounds, sound => sound.name == name);
 
         if(sound == null)
         {
@@ -108,20 +116,20 @@ public class AudioManager : MonoBehaviour
         {
             case SoundType.Sound:
                 sound.source.Play();
-                sound.source.mute = !_soundOn;
+                sound.source.mute = !_self._soundOn;
                 break;
             case SoundType.Music:
                 sound.source.Play();
-                sound.source.mute = !_musicOn;
+                sound.source.mute = !_self._musicOn;
                 break;
         }
     }
 
     private void OnDestroy()
     {
-        ControllerUI.OnSoundToggle -= ChangeSoundOn;
-        ControllerUI.OnMusicToggle -= ChangeMusicOn;
-        ControllerUI.OnSoundChange -= ChangeSoundVolume;
-        ControllerUI.OnMusicChange -= ChangeMusicVolume;
+        UiGameManager.OnSoundToggle -= ChangeSoundOn;
+        UiGameManager.OnMusicToggle -= ChangeMusicOn;
+        UiGameManager.OnSoundChange -= ChangeSoundVolume;
+        UiGameManager.OnMusicChange -= ChangeMusicVolume;
     }
 }
